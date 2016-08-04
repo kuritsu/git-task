@@ -85,13 +85,18 @@ var server = http.createServer(function(req, res) {
         return;
     }
 
-    if (parsedUrl.search == null) {
-        res.end('{status:"error", msg:"Invalid request."}');
-        return;
-    }
-    var qs = querystring.parse(parsedUrl.search.substring(1));
-    console.log(qs);
-    res.end('OK');
+    var data = "";
+    req.on("data", function(chunk) {
+       data += chunk;
+    }).on("end", function() {
+        var pathname = parsedUrl.pathname;
+        if (pathname == "/tasks/" && req.method == 'POST') {
+            var parsedData = JSON.parse(data);
+            console.log("got here>>>" + JSON.stringify(parsedData));
+            res.writeHead(200, {'Content-type': 'application/json'});
+            res.end('{"status":"success","msg":"Create request"}');
+        }
+    });
 });
 
 server.listen(config.port, config.bindAddress, function() {

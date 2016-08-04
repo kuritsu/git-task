@@ -39,6 +39,19 @@ function get_container_for(status) {
 }
 
 $(document).ready(function() {
+
+    $("#new_task_button").click(function() {
+        alert("here");
+        var url = "http://".concat(config.bindAddress, ":",
+            config.port, "/tasks/");
+        var data = {"req": "example"};
+        $.post(url, JSON.stringify(data), function(res) {
+            alert("got there!");
+        }).fail(function(error){
+            alert("error:" + JSON.stringify(error));
+        });
+    });
+
     var item_template =
         "<div class='task_item' draggable='true' data-id='%id%'>" +
             "%id% <br/>" +

@@ -9,7 +9,7 @@ var config = {
     port: 16100,
 
     // Server bind address
-    bindAddress: '127.0.0.1'
+    bindAddress: 'localhost'
 };
 
 //NOTICE: Do not modify from this point.
