@@ -9,8 +9,9 @@ var config = {
     port: 16100,
 
     // Server bind address
-    bindAddress: 'localhost'
+    bindAddress: 'localhost',
 };
 
 //NOTICE: Do not modify from this point.
-module.exports = config;
+if (typeof module !== 'undefined')
+    module.exports = config;

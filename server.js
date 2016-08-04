@@ -7,6 +7,10 @@ const url = require('url');
 const querystring = require('querystring');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+const child_process = require('child_process');
+
+require('./common.js');
 const config = require('./config.js');
 
 /**
@@ -24,35 +28,49 @@ function getContentTypeFromFileName(fileName) {
 }
 
 /**
- * Replaces all text ocurrences in a string.
- * @param whichText String: Text to find.
- * @param withText String: Text to replace with.
+ * Creates a digest (base64 id) for an item.
+ * @returns {*} Item ID.
  */
-String.prototype.replaceAll = function(whichText, withText) {
-    var inText = this.toString();
-    while (inText.indexOf(whichText) >= 0) {
-        inText = inText.replace(whichText, withText);
+function createItemId() {
+    var hmac = crypto.createHmac('sha256', Date.now().toString());
+    return hmac.digest('hex');
+}
+
+/**
+ * Ensures the data dir is created.
+ */
+function checkDataDir() {
+    if (fs.existsSync('data')) {
+        return;
     }
-    return inText;
-};
+    fs.mkdirSync('data');
+}
 
 /**
- * Indicates if a string starts with a text or not.
- * @param text Text to analyse.
- * @returns {boolean} True if the string starts with the text, false if not.
+ * Adds a file to the git repository.
+ * @param fileName File name.
  */
-String.prototype.startsWith = function(text) {
-    return text != null && this.indexOf(text) == 0;
-};
+function gitAdd(fileName) {
+    console.info('Calling git: ');
+    child_process.exec('git add --verbose ' + fileName, function(error, stdout, stderr) {
+        console.log(stdout.toString());
+        if (stderr.length > 0) {
+            console.error(stderr.toString());
+        }
+    });
+}
 
 /**
- * Indicates if a string ends with a text or not.
- * @param text Text to analyse.
- * @returns {boolean} True if the string ends with the text, false if not.
+ * Saves the object to a file.
+ * @param obj
  */
-String.prototype.endsWith = function(text) {
-    return text != null && this.lastIndexOf(text) == this.length - text.length;
-};
+function saveObjectToFile(obj) {
+    checkDataDir();
+    var fileName = "data" + path.sep + obj.id;
+    fs.writeFileSync(fileName, JSON.stringify(obj, null, 2));
+    console.info("File '%s' created.", fileName);
+    gitAdd(fileName);
+}
 
 /**
  * Serves a file directly to the browser.
@@ -68,7 +86,7 @@ function serveFile(res, pathname) {
     console.log('Retrieving file %s.', fileName);
     if (!fs.existsSync(fileName)) {
         res.writeHead(500, {});
-        console.log("Invalid access to file '%s'.", fileName);
+        console.error("Invalid access to file '%s'.", fileName);
         res.end("");
         return;
     }
@@ -77,7 +95,87 @@ function serveFile(res, pathname) {
     res.end(fileContent);
 }
 
-var server = http.createServer(function(req, res) {
+/**
+ * Reports successful response with an object.
+ * @param response HTTP response.
+ * @param obj Object to return.
+ */
+function reportSuccess(response, obj) {
+    response.writeHead(200, {'Content-type': 'application/json'});
+    var responseBody = {
+        "status":"success",
+        "obj": obj
+    };
+    response.end(JSON.stringify(responseBody));
+}
+
+/**
+ * Reports an error as a json response.
+ * @param response HTTP response.
+ * @param errorMessage Error message.
+ * @param exception Exception if needs saving to the log.
+ */
+function reportError(response, errorMessage, exception) {
+    if (exception) {
+        console.error(JSON.stringify(exception));
+    }
+    response.writeHead(500, {'Content-type': 'application/json'});
+    var responseBody = {
+        "status":"error",
+        "msg": errorMessage
+    };
+    response.end(JSON.stringify(responseBody));
+}
+
+/**
+ * Processes a POST request.
+ * @param data Data received.
+ * @param res HTTP Response.
+ */
+function postItem(data, res) {
+    var parsedData = JSON.parse(data);
+    if (!parsedData.id) {
+        parsedData.id = createItemId();
+    }
+    try {
+        saveObjectToFile(parsedData);
+    }
+    catch (e) {
+        return reportError(res, 'Error creating item.', e);
+    }
+    reportSuccess(res, parsedData);
+}
+
+/**
+ * Gets the tasks items.
+ * @param res HTTP response.
+ */
+function getItems(res) {
+    try {
+        checkDataDir();
+        var files = fs.readdirSync('data');
+        var items = [];
+        files.forEach(function (item) {
+            try {
+                var fileContent = fs.readFileSync('data' + path.sep + item);
+                items.push(JSON.parse(fileContent));
+            } catch (e) {
+                console.error("Error reading file '%s'. %s", item, JSON.stringify(e));
+            }
+        });
+        reportSuccess(res, items);
+    } catch (e) {
+        reportError(res, "Error reading tasks.", e);
+    }
+}
+
+/**
+ * Fires when the server receives a request.
+ * @param req HTTP Request.
+ * @param res HTTP Response.
+ */
+function requestReceived(req, res) {
+    console.log("");
     var parsedUrl = url.parse(req.url);
     if (parsedUrl.pathname == null ||
         !parsedUrl.pathname.startsWith("/tasks/")) {
@@ -87,17 +185,21 @@ var server = http.createServer(function(req, res) {
 
     var data = "";
     req.on("data", function(chunk) {
-       data += chunk;
+        data += chunk;
     }).on("end", function() {
-        var pathname = parsedUrl.pathname;
-        if (pathname == "/tasks/" && req.method == 'POST') {
-            var parsedData = JSON.parse(data);
-            console.log("got here>>>" + JSON.stringify(parsedData));
-            res.writeHead(200, {'Content-type': 'application/json'});
-            res.end('{"status":"success","msg":"Create request"}');
+        switch (req.method) {
+            case 'POST':
+                postItem(data, res);
+                break;
+
+            case 'GET':
+                getItems(res);
+                break;
         }
     });
-});
+}
+
+var server = http.createServer(requestReceived);
 
 server.listen(config.port, config.bindAddress, function() {
     console.log('Server is now listening on %s:%d...', config.bindAddress, config.port);
