@@ -202,5 +202,13 @@ function requestReceived(req, res) {
 var server = http.createServer(requestReceived);
 
 server.listen(config.port, config.bindAddress, function() {
+    var pidFile = __dirname + path.sep + "server.pid";
     console.log('Server is now listening on %s:%d...', config.bindAddress, config.port);
+    fs.writeFileSync(pidFile, process.pid);
+
+    process.on('SIGTERM', function() {
+        console.log('Got SIGTERM signal. Exiting');
+        fs.unlinkSync(pidFile);
+        process.exit(0);
+    });
 });
