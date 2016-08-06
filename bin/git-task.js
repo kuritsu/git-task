@@ -120,7 +120,7 @@ function gitStash(arg) {
  * Git unstage file.
  */
 function gitUnstage(path) {
-    git('rm --cached -r"' + path + '"');
+    git('rm --cached -r" ' + path + '"');
 }
 
 /**
