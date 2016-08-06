@@ -38,6 +38,20 @@ const MODULE_OPTIONS_TASK_ADD = {
     ]
 };
 
+const MODULE_OPTIONS_TASK_COMMIT = {
+    mod: 'commit',
+    description: 'Commits only the content of the .tasks directory.',
+    options: [
+        {
+            name: 'message',
+            short:'m',
+            type: 'string',
+            description: '(Optional) The message for the commit.',
+            example: "git task commit -m 'git task added!'"
+        }
+    ]
+};
+
 const MODULE_OPTIONS_TASK_START = {
     mod: 'start',
     description: 'Start the git-task service.',
@@ -52,31 +66,61 @@ const MODULE_OPTIONS_TASK_STOP = {
     ]
 };
 
-const ALL_MODULES = [MODULE_OPTIONS_TASK_ADD, MODULE_OPTIONS_TASK_INIT,
+const ALL_MODULES = [MODULE_OPTIONS_TASK_ADD, MODULE_OPTIONS_TASK_COMMIT, MODULE_OPTIONS_TASK_INIT,
     MODULE_OPTIONS_TASK_START, MODULE_OPTIONS_TASK_STOP];
+
+/**
+ * Runs git.
+ * @param args Git arguments (string).
+ */
+function git(args) {
+    try {
+        var output = child_process.execSync('git '+ args).toString().trim();
+        console.log(output);
+        return output
+    } catch (e) {
+        console.error("Error running git. Exiting.");
+        process.exit(1);
+    }
+}
 
 /**
  * Gets the git repository base dir.
  */
 function getRepoDir() {
-    try {
-        var repoDir = child_process.execSync('git rev-parse --show-toplevel');
-        return repoDir.toString().trim();
-    } catch (e) {
-        return null;
-    }
+    return git('rev-parse --show-toplevel');
 }
 
 /**
  * Add a path to git.
  */
 function gitAdd(path) {
-    try {
-        console.log(child_process.execSync('git add "' + path + '"').toString().trim());
-    } catch (e) {
-        console.error("Error running git. Exiting.");
-        process.exit(1);
+    git('add "' + path + '"');
+}
+
+/**
+ * Commits with git.
+ */
+function gitCommit(message) {
+    var messageArg = "";
+    if (message) {
+        messageArg = "-m " + message.quote();
     }
+    git('commit ' + messageArg);
+}
+
+/**
+ * Stash with git.
+ */
+function gitStash(arg) {
+    git('stash ' + arg);
+}
+
+/**
+ * Git unstage file.
+ */
+function gitUnstage(path) {
+    git('rm --cached -r"' + path + '"');
 }
 
 /**
@@ -122,6 +166,19 @@ function taskInit(args) {
     if (runServer) {
         taskStart(args);
     }
+}
+
+/**
+ * Commits only the contents of the .tasks directory.
+ * @param args Arguments.
+ */
+function taskCommit(args) {
+    var message = args.options["message"];
+    gitUnstage(taskDir);
+    gitStash('save');
+    gitAdd(taskDir);
+    gitCommit(message);
+    gitStash('pop');
 }
 
 String.prototype.quote = function(sym) {
@@ -189,6 +246,9 @@ function run() {
     });
     var args = argv.run();
     switch (args.mod) {
+        case 'commit':
+            taskCommit(args);
+            break;
         case 'init':
             taskInit(args);
             break;
@@ -197,6 +257,14 @@ function run() {
             break;
         case 'stop':
             taskStop(args);
+            break;
+        default:
+            console.error("Error: command argument required.");
+            console.log("Available commands: ");
+            ALL_MODULES.forEach(function(module) {
+                console.log("\t %s", module.mod);
+            });
+            process.exit(-1);
             break;
     }
 }
