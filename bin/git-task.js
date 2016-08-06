@@ -79,7 +79,7 @@ function git(args) {
         console.log(output);
         return output
     } catch (e) {
-        console.error("Error running git. Exiting.");
+        console.error("Error running git. Exiting." + e);
         process.exit(1);
     }
 }
