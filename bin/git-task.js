@@ -10,7 +10,7 @@ var ncp = require('./ncp').ncp;
 
 const DEFAULT_TEMPLATE_DIR = "/usr/share/git-task/project-template";
 
-var taskInitModuleOptions = {
+const MODULE_OPTIONS_TASK_INIT = {
     mod: 'init',
     description: 'Init a git task-enabled repository.',
     options: [
@@ -31,28 +31,29 @@ var taskInitModuleOptions = {
     ]
 };
 
-var taskAddModuleOptions = {
+const MODULE_OPTIONS_TASK_ADD = {
     mod: 'add',
     description: 'Add a new task.',
     options: [
     ]
 };
 
-var taskStartModuleOptions = {
+const MODULE_OPTIONS_TASK_START = {
     mod: 'start',
     description: 'Start the git-task service.',
     options: [
     ]
 };
 
-var taskStopModuleOptions = {
+const MODULE_OPTIONS_TASK_STOP = {
     mod: 'stop',
     description: 'Stop the git-task service.',
     options: [
     ]
 };
 
-var allModules = [taskAddModuleOptions, taskInitModuleOptions, taskStartModuleOptions, taskStopModuleOptions];
+const ALL_MODULES = [MODULE_OPTIONS_TASK_ADD, MODULE_OPTIONS_TASK_INIT,
+    MODULE_OPTIONS_TASK_START, MODULE_OPTIONS_TASK_STOP];
 
 /**
  * Gets the git repository base dir.
@@ -105,21 +106,22 @@ function copyTemplateDir(templateDir, taskDir) {
  * @param args Arguments.
  */
 function taskInit(args) {
-    var currentOption = null;
     var templateDir = DEFAULT_TEMPLATE_DIR;
     if (args.options["template-dir"] != null) {
         templateDir = args.options["template-dir"];
     }
-    var runServer = args.options["server"] ? args.options["server"] : false;
-    var repoDir = getRepoDir();
     if (repoDir == null) {
         console.error('Repository directory not accessible. Exiting.');
         process.exit(1);
     }
-    var taskDir = repoDir + path.sep + ".tasks";
     console.log("Deploying git-task directory to %s.", taskDir);
     copyTemplateDir(templateDir, taskDir);
     gitAdd(taskDir);
+
+    var runServer = args.options["server"] ? args.options["server"] : false;
+    if (runServer) {
+        taskStart(args);
+    }
 }
 
 String.prototype.quote = function(sym) {
@@ -134,11 +136,8 @@ String.prototype.quote = function(sym) {
  * @param args Arguments.
  */
 function taskStart(args) {
-    var taskDir = repoDir + path.sep + ".tasks";
     try {
         var nodeExe = process.argv[0];
-        var serverPath= taskDir + path.sep + "server.js";
-        var serverLog = taskDir + path.sep + "server.log";
         var out = fs.openSync(serverLog, 'a');
         var err = fs.openSync(serverLog, 'a');
         var serverProcess = child_process.spawn(nodeExe, [serverPath], {
@@ -157,8 +156,7 @@ function taskStart(args) {
  * @param args Arguments.
  */
 function taskStop(args) {
-    var taskDir = repoDir + path.sep + ".tasks";
-    var pidFile = taskDir + path.sep + "server.pid";
+
     if (!fs.existsSync(pidFile)) {
         console.error('Server pid file "%s" does not exist. Exiting.', pidFile);
         process.exit(1);
@@ -186,7 +184,7 @@ function taskAdd(args) {
  */
 function run() {
     argv.version('v0.1.0');
-    allModules.forEach(function (m) {
+    ALL_MODULES.forEach(function (m) {
         argv.mod(m);
     });
     var args = argv.run();
@@ -204,4 +202,9 @@ function run() {
 }
 
 var repoDir = getRepoDir();
+var taskDir = repoDir + path.sep + ".tasks";
+var pidFile = taskDir + path.sep + "server.pid";
+var serverPath= taskDir + path.sep + "server.js";
+var serverLog = taskDir + path.sep + "server.log";
+
 run();
