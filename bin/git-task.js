@@ -180,11 +180,8 @@ function taskInit(args) {
  */
 function taskCommit(args) {
     var message = args.options["message"];
-    gitUnstage(taskDir);
-    gitStash('save');
     gitAdd(taskDir);
     gitCommit(message);
-    gitStash('pop');
 }
 
 String.prototype.quote = function(sym) {
