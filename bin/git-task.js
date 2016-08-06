@@ -77,7 +77,7 @@ function git(args) {
     try {
         var output = child_process.execSync('git '+ args).toString().trim();
         console.log(output);
-        return output
+        return output;
     } catch (e) {
         console.error("Error running git. Exiting." + e);
         process.exit(1);
@@ -88,7 +88,13 @@ function git(args) {
  * Gets the git repository base dir.
  */
 function getRepoDir() {
-    return git('rev-parse --show-toplevel');
+    try {
+        var output = child_process.execSync('git rev-parse --show-toplevel');
+        return output.toString().trim();
+    } catch (e) {
+        console.error("Error running git. Exiting." + e);
+        process.exit(1);
+    }
 }
 
 /**
@@ -106,7 +112,7 @@ function gitCommit(message) {
     if (message) {
         messageArg = "-m " + message.quote();
     }
-    git('commit ' + messageArg);
+    git('commit ' + messageArg + " -- " + taskDir.quote());
 }
 
 /**
