@@ -11,20 +11,30 @@
 </head>
 <body>
     <div class="main_menu">
-        <div class="menu_section">
-            <a id="new_task_button" href="#">New task</a>
-        </div>
-        <input id="search_textbox" placeholder="Filter / search here" >
-        <div class="status">
-            <div class="loading hidden">
-                Loading...
+        <div class="main_menu_top_section">
+            <div class="menu_section">
+                <a id="new_task_button" href="#">New task</a>
             </div>
-            <div class="success hidden">
+            <input id="search_textbox" placeholder="Filter / search here" >
+            <div class="status">
+                <div class="loading hidden">
+                    Loading...
+                </div>
+                <div class="success hidden">
+                </div>
 
+                <div class="error_message hidden">
+                </div>
             </div>
         </div>
         <div class="task_editor hidden">
+            <div class="separator"></div>
+            <h1>Edit task</h1><br/>
+            <div class="task_editor_form">
 
+            </div>
+            <a id="save_task_button" href="#">Save</a>&nbsp;
+            <a id="close_task_button" href="#">Close</a>
         </div>
     </div>
     <div class="main_menu_space">
@@ -32,6 +42,19 @@
     </div>
     <div id="task_container">
 
+    </div>
+    <div id="task_menu" class="hidden">
+        <ul class="task_menu_list">
+            <li class="task_menu_item" id="edit_task_menu_item"><a href="#">Edit task</a></li>
+            <li class="task_menu_item" id="include_commit_task_menu_item"><a href="#">Include in commit</a></li>
+            <li class="task_menu_item" id="exclude_commit_task_menu_item"><a href="#">Exclude from commit</a></li>
+            <li class="task_menu_item" id="delete_task_menu_item"><a href="#">Delete task</a></li>
+        </ul>
+    </div>
+    <div id="color_legend">
+        <div class="task_item legend">Unchanged</div>
+        <div class="task_item legend added">Added</div>
+        <div class="task_item legend modified">Modified</div>
     </div>
 </body>
 </html>

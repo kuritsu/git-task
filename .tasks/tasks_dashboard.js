@@ -56,42 +56,60 @@ function findTaskItem(id) {
 }
 
 /**
- * Create form for editing a task.
+ * Edits a task in a form.
+ * @param task Task to edit.
  */
-function taskItemEditClick(event) {
-    var taskItem = $(event.target).parents(".task_item");
-    var task = findTask(taskItem.data("id"));
+function editTask(task) {
     var keys = Object.keys(task);
-    var template = '<tr><td align="right">%key%: </td>' +
-        '<td width="70%"><input type="text" data-key="%key%" value="%value%" %attrs% /></td></tr>';
-    var content = '<br/>Edit task<br/><table class="form_table" cellpadding="3" cellspacing="3">';
-    var container = $(".task_editor");
+    var containerForm = $(".task_editor_form");
+    var content = '<table class="form_table" cellpadding="3" cellspacing="3">';
+    var template =
+        '<tr>' +
+            '<td class="task_edit_form_keys_column">%key%: </td>' +
+            '<td class="task_edit_form_values_column">' +
+                '<input type="text" data-key="%key%" class="task_edit_input" value="%value%" %attrs% />' +
+            '</td>' +
+        '</tr>';
     keys.sort();
     keys.forEach(function(key) {
         var attrs = "";
+        var encodedValue = task[key];
+        if (typeof encodedValue === 'string') {
+            encodedValue = encodedValue.replaceAll('"', "&quot;").replaceAll("'", '&apos;');
+        }
         if (key == "id") {
             attrs = "readonly";
         }
-        content += template.format(["%key%", "%value%", "%attrs%"], [key, task[key], attrs]);
+        content += template.format(["%key%", "%value%", "%attrs%"], [key, encodedValue, attrs]);
     });
-    content += '</table><input type="button" value="Save" id="save_task_button" />';
-    content += '<input type="button" value="Close" id="close_task_button" />';
-    container.html(content);
-    container.removeClass("hidden");
-
-    $("#save_task_button").click(function(event) {
-        container.find("input").toArray().forEach(function(item) {
+    content += '</table>';
+    containerForm.html(content);
+    var taskEditorPanel = $(".task_editor");
+    taskEditorPanel.removeClass("hidden");
+    $("#save_task_button").off("click").click(function(event) {
+        event.preventDefault();
+        containerForm.find("input").toArray().forEach(function(item) {
             var input = $(item);
             task[input.data("key")] = input.val();
         });
         updateTask(task);
+        var taskItem = findTaskItem(task.id);
         addTask(task, taskItem);
-        container.addClass("hidden");
     });
 
-    $("#close_task_button").click(function(event) {
-       container.addClass("hidden");
+    $("#close_task_button").off("click").click(function(event) {
+        event.preventDefault();
+        taskEditorPanel.addClass("hidden");
     });
+}
+
+/**
+ * Fires when the Edit task link is clicked.
+ */
+function taskItemEditClick(event) {
+    var taskItem = $(event.target).parents(".task_item");
+    var task = findTask(taskItem.data("id"));
+    editTask(task);
 }
 
 /**
@@ -104,7 +122,7 @@ function addTask(task, prevItem) {
         tasks.push(task);
     }
     var itemTemplate =
-        '<div class="task_item" draggable="true" data-id="%id%">' +
+        '<div class="task_item %git%" draggable="true" data-id="%id%">' +
             '<span class="task_item_title">%title%</span><br/>' +
             '<span class="task_item_pending">%pending%</span>h / ' +
             '<span class="task_item_estimated">%estimation%</span>h<br/>' +
@@ -116,15 +134,24 @@ function addTask(task, prevItem) {
         '</div>';
     var tags = (!task.tags || task.tags.isWhitespace()) ?
         "<em>[no tags]</em>" : task.tags;
+    var git = "";
+    switch (task.gitStatus) {
+        case 'A ':
+            git = "added";
+            break;
+        case ' M':
+            git = "modified";
+            break;
+    }
     var realItem = itemTemplate.format(
-        ["%id%","%title%","%pending%","%estimation%","%tags%"],
-        [task.id, task.title, task.pending, task.estimation, tags]);
+        ["%id%","%title%","%pending%","%estimation%","%tags%", "%git%"],
+        [task.id, task.title, task.pending, task.estimation, tags, git]);
     var container = getContainerFor(task.status);
     if (container.length == 0) {
         return;
     }
     var replaced = false;
-    if (prevItem != null) {
+    if (prevItem != null && prevItem.length == 1) {
         var prevParent = prevItem.parent(".column_task_group");
         if (prevParent.data("status") == container.data("status")) {
             prevItem.replaceWith(realItem);
@@ -143,6 +170,7 @@ function addTask(task, prevItem) {
     newChildNode.find(".task_item_title").click(taskItemTitleClick);
     newChildNode.find(".task_item_tags").click(taskItemTagsClick);
     newChildNode.find(".edit_task_link").click(taskItemEditClick);
+    newChildNode.find(".task_menu_link").click(taskItemMenuLinkClick);
 }
 
 /**
@@ -169,10 +197,15 @@ function editTaskTitle(task) {
  * Fires when the New task button is clicked.
  */
 function newTaskClick() {
+    event.preventDefault();
     var url = getBaseUrl();
     var newTask = createNewTask();
     $.post(url, JSON.stringify(newTask), function(res) {
         addTask(res.obj);
+        if (!$(".task_editor").hasClass("hidden")) {
+            editTask(res.obj);
+            return;
+        }
         editTaskTitle(res.obj);
     }).fail(function(error){
         alert("error:" + JSON.stringify(error));
@@ -262,11 +295,67 @@ function taskItemTagsClick() {
 }
 
 /**
+ * Deletes a task.
+ * @param taskId Task ID.
+ */
+function deleteTask(taskId) {
+    $.ajax(getBaseUrl() + "/" + taskId, {
+        method: "DELETE",
+        success: function(data) {
+            if (data.status == "success") {
+                handleSuccess('Task deleted.');
+                var taskItem = findTaskItem(taskId);
+                taskItem.remove();
+            }
+            else {
+                handleError("Error deleting task: " + data.msg);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            handleError("Error deleting task: " + textStatus);
+        }
+    });
+}
+
+/**
+ * Fires when the link of the task menu is clicked.
+ * @param event
+ */
+function taskItemMenuLinkClick(event) {
+    event.preventDefault();
+    var menuLink = $(event.target);
+    var taskItem = menuLink.parents(".task_item");
+    var taskId = taskItem.data("id");
+    var taskMenu = $("#task_menu");
+    var task = findTask(taskId);
+    taskMenu.data("id", taskId);
+    taskMenu.css("top", taskItem.offset().top + taskItem.height() - 10);
+    taskMenu.css("left", taskItem.offset().left + taskItem.width() - 10);
+    taskMenu.removeClass("hidden");
+
+    var includeInCommit = $("#include_commit_task_menu_item");
+    var excludeFromCommit = $("#exclude_commit_task_menu_item");
+    if (task.gitStatus == '??') {
+        includeInCommit.removeClass('hidden');
+        excludeFromCommit.addClass('hidden');
+    } else {
+        excludeFromCommit.removeClass('hidden');
+        includeInCommit.addClass('hidden');
+    }
+}
+
+/**
  * Handles an error occurred in the app.
  * @param error Error (exception).
  */
 function handleError(error) {
-    alert("Error: " + error.stringify());
+    var errorPanel = $(".error_message");
+    errorPanel.html(error);
+    errorPanel.removeClass('hidden');
+    errorPanel.fadeIn(200, function() {
+        errorPanel.fadeOut(3000, function() {
+        });
+    });
 }
 
 /**
@@ -369,9 +458,81 @@ function registerFilterEvents() {
     });
 }
 
+/**
+ * Register a click event in the document to enable hiding the task context menu.
+ */
+function registerTaskMenuHideEvent() {
+    $(document).click(function(event) {
+        var target = $(event.target);
+        var taskMenu = $("#task_menu");
+        if (target.attr("id") != "task_menu" &&
+            !target.hasClass("task_menu_link") &&
+            !taskMenu.hasClass("hidden")) {
+            taskMenu.addClass("hidden");
+        }
+    });
+}
+
+/**
+ * Unstages a task from git.
+ * @param taskId Task ID.
+ */
+function unstageTask(taskId) {
+    var task = findTask(taskId);
+    var taskItem = findTaskItem(taskId);
+    task.gitStatus = '??';
+    updateTask(task);
+    addTask(task, taskItem);
+}
+
+/**
+ * Stages a task in git.
+ * @param taskId Task ID.
+ */
+function stageTask(taskId) {
+    var task = findTask(taskId);
+    var taskItem = findTaskItem(taskId);
+    task.gitStatus = 'A ';
+    updateTask(task);
+    addTask(task, taskItem);
+}
+
+/**
+ * Register the clicks of the task context menu items.
+ */
+function registerTaskContextMenuEvents() {
+    $("#edit_task_menu_item").click(function(event) {
+        var taskId = $("#task_menu").data("id");
+        var task = findTask(taskId);
+        editTask(task);
+    });
+
+    $("#include_commit_task_menu_item").click(function(event) {
+        var taskId = $("#task_menu").data("id");
+        stageTask(taskId);
+    });
+
+    $("#exclude_commit_task_menu_item").click(function(event) {
+        var taskId = $("#task_menu").data("id");
+        unstageTask(taskId);
+    });
+
+    $("#delete_task_menu_item").click(function(event) {
+        var taskId = $("#task_menu").data("id");
+        deleteTask(taskId);
+    });
+}
+
+function registerTaskEditorButtonEvents() {
+
+}
+
 $(document).ready(function() {
     createTaskStatusPanels();
     loadTasks();
     registerFilterEvents();
+    registerTaskMenuHideEvent();
+    registerTaskContextMenuEvents();
+    registerTaskEditorButtonEvents();
     $("#new_task_button").click(newTaskClick);
 });

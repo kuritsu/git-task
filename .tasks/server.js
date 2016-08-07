@@ -61,15 +61,52 @@ function gitAdd(fileName) {
 }
 
 /**
+ * Removes a file from git and delete it.
+ * @param fileName File name.
+ */
+function gitRm(fileName) {
+    console.info('Calling git: ');
+    child_process.execSync('git rm --force "' + fileName + '"');
+}
+
+/**
+ * Unstages a file from git.
+ * @param fileName File name.
+ */
+function gitUnstage(fileName) {
+    console.info('Calling git: ');
+    child_process.execSync('git reset HEAD "' + fileName + '"');
+}
+
+/**
+ * Gets the git status for task items.
+ * @returns {*} String of the git status such as:
+ * A  .tasks/data/0ae54bd852ad6a68481f0884f04c4f13ff79b98623cd0f9615300aaa0794c71e
+ *  M .tasks/data/1ad8a826fa0c95d0f3a087740499eea51dfa9bb043cd8613f40bf7f0e99dcf87
+ * ?? .tasks/data/b82c194529c8918d3f175462339c082174379cc668c2dd75ac1a2430714e4ae0
+ * Where A is added, M is modified, R is renamed, D deleted and ?? is untracked
+ */
+function gitGetTaskStatus() {
+    console.info('Calling git: ');
+    var status = child_process.execSync('git status --porcelain "' + dataDir + '"').toString();
+    console.log(status);
+    return status;
+}
+
+/**
  * Saves the object to a file.
- * @param obj
+ * @param obj Object to save.
  */
 function saveObjectToFile(obj) {
     checkDataDir();
     var fileName = dataDir + path.sep + obj.id;
     fs.writeFileSync(fileName, JSON.stringify(obj, null, 2));
     console.info("File '%s' created.", fileName);
-    gitAdd(fileName);
+    if (obj.gitStatus == '??') {
+        gitUnstage(fileName);
+    } else {
+        gitAdd(fileName);
+    }
 }
 
 /**
@@ -103,9 +140,11 @@ function serveFile(res, pathname) {
 function reportSuccess(response, obj) {
     response.writeHead(200, {'Content-type': 'application/json'});
     var responseBody = {
-        "status":"success",
-        "obj": obj
+        "status":"success"
     };
+    if (obj) {
+        responseBody.obj = obj;
+    }
     response.end(JSON.stringify(responseBody));
 }
 
@@ -147,6 +186,22 @@ function postItem(data, res) {
 }
 
 /**
+ * Updates the status in git of a task.
+ * @param task Task to update.
+ * @param gitStatusList Status list from git.
+ */
+function updateTaskGitStatus(task, gitStatusList) {
+    task.gitStatus = '??';
+    if (typeof task.id !== 'string')
+        return;
+    gitStatusList.forEach(function(item) {
+        if (item.endsWith(path.sep + task.id)) {
+            task.gitStatus = item.substr(0, 2);
+        }
+    });
+}
+
+/**
  * Gets the tasks items.
  * @param res HTTP response.
  */
@@ -155,10 +210,13 @@ function getItems(res) {
         checkDataDir();
         var files = fs.readdirSync(dataDir);
         var items = [];
+        var gitStatusList = gitGetTaskStatus().split('\n');
         files.forEach(function (item) {
             try {
                 var fileContent = fs.readFileSync(dataDir + path.sep + item);
-                items.push(JSON.parse(fileContent));
+                var task = JSON.parse(fileContent);
+                updateTaskGitStatus(task, gitStatusList);
+                items.push(task);
             } catch (e) {
                 console.error("Error reading file '%s'. %s", item, JSON.stringify(e));
             }
@@ -166,6 +224,22 @@ function getItems(res) {
         reportSuccess(res, items);
     } catch (e) {
         reportError(res, "Error reading tasks.", e);
+    }
+}
+
+/**
+ * Delete a task item.
+ * @param itemId Item ID.
+ * @param res HTTP Response.
+ */
+function deleteItem(itemId, res) {
+    console.log('Deleting task %s.', itemId);
+    try {
+        gitRm(dataDir + path.sep + itemId);
+        reportSuccess(res);
+    }
+    catch (e) {
+        reportError(res, "Error deleting task.");
     }
 }
 
@@ -194,6 +268,10 @@ function requestReceived(req, res) {
 
             case 'GET':
                 getItems(res);
+                break;
+
+            case 'DELETE':
+                deleteItem(parsedUrl.pathname.substr("/tasks/".length + 1).trim(), res);
                 break;
         }
     });

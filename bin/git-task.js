@@ -8,7 +8,7 @@ const path = require('path');
 var argv = require('./argv');
 var ncp = require('./ncp').ncp;
 
-const DEFAULT_TEMPLATE_DIR = "/usr/share/git-task/project-template";
+const DEFAULT_TEMPLATE_DIR = "/usr/share/git-task/lib";
 
 const MODULE_OPTIONS_TASK_INIT = {
     mod: 'init',
@@ -138,7 +138,6 @@ function gitUnstage(path) {
  * Copies the templateDir to the git-task folder in the repoDir.
  * @param templateDir Template directory.
  * @param taskDir git-task repository directory.
- * @returns {*}
  */
 function copyTemplateDir(templateDir, taskDir) {
     try {

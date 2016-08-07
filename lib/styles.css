@@ -9,6 +9,22 @@ input {
     font-size: 11pt;
 }
 
+h1 {
+    font-size: 11pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: indigo;
+}
+
+.error_message {
+    color: red;
+}
+
 .form_table {
     border: 0;
     width: 100%;
@@ -32,6 +48,20 @@ input {
     padding: 2px;
     float: left;
     overflow: auto;
+}
+
+.task_item.legend {
+    width: 100px;
+    height: 20px;
+    min-height: 20px;
+}
+
+.task_item.added {
+    background-color: #fffc51;
+}
+
+.task_item.modified {
+    background-color: #ff9270;
 }
 
 .task_item_tags {
@@ -93,6 +123,11 @@ input {
     border: 1px solid black;
 }
 
+.main_menu_top_section {
+    height: 20px;
+    vertical-align: middle;
+}
+
 .main_menu_space {
     height: 30px;
 }
@@ -113,4 +148,43 @@ input {
 
 .success {
     float: left;
+}
+
+#task_menu {
+    position: absolute;
+    background-color: white;
+    width: 160px;
+    min-height: 60px;
+    border: 1px solid black;
+    padding: 2px;
+}
+
+.task_menu_list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.task_menu_item {
+    margin: 5px;
+}
+
+.task_edit_input {
+    width: 100%;
+}
+
+.task_edit_form_keys_column {
+    text-align: right;
+    width: 20%;
+}
+
+.task_edit_form_values_column {
+    width: 80%;
+}
+
+.separator {
+    width: 100%;
+    height: 2px;
+    background-color: darkgreen;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
