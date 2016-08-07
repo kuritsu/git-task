@@ -4,5 +4,8 @@
   "estimation": "1",
   "title": "Permit single and double quotes in the task editor",
   "tags": "webpage",
-  "id": "9d68d08a2181774e8af38e1877d7689d86789a28cfc34dd47a00f109aaa4df78"
+  "id": "9d68d08a2181774e8af38e1877d7689d86789a28cfc34dd47a00f109aaa4df78",
+  "gitStatus": "??",
+  "createdAt": 1470613618499,
+  "updatedAt": 1470613618499
 }

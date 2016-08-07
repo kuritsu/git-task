@@ -1,0 +1,11 @@
+{
+  "status": "open",
+  "pending": "2",
+  "estimation": "2",
+  "title": "Click in the pending/estimated hours in a task item should edit those values",
+  "tags": "webpage",
+  "id": "9a2425d2df17430ccb0a213836b863464579feaf68f2db57ebc432f817992c67",
+  "gitStatus": "??",
+  "createdAt": 1470613546238,
+  "updatedAt": 1470613546239
+}

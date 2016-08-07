@@ -176,6 +176,10 @@ function postItem(data, res) {
     if (!parsedData.id) {
         parsedData.id = createItemId();
     }
+    if (!parsedData.createdAt) {
+        parsedData.createdAt = Date.now();
+    }
+    parsedData.updatedAt = Date.now();
     try {
         saveObjectToFile(parsedData);
     }

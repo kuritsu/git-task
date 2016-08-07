@@ -1,0 +1,11 @@
+{
+  "status": "open",
+  "pending": "2",
+  "estimation": "2",
+  "title": "New tasks must have gitStatus = \"A \" ",
+  "tags": "webpage",
+  "id": "de3f23141b48a1f5b58b25c67e6dbba2be6d59466124339e4ee103401828f257",
+  "gitStatus": "??",
+  "createdAt": 1470613552346,
+  "updatedAt": 1470613552346
+}

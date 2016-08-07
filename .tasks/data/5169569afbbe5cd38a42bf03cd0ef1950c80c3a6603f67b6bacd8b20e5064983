@@ -1,0 +1,11 @@
+{
+  "status": "in_progress",
+  "pending": "2",
+  "estimation": "2",
+  "title": "Add createdAt and updatedAt DateTime fields for tasks",
+  "tags": "task definition",
+  "id": "5169569afbbe5cd38a42bf03cd0ef1950c80c3a6603f67b6bacd8b20e5064983",
+  "gitStatus": "A ",
+  "createdAt": 1470613474369,
+  "updatedAt": 1470613474369
+}
