@@ -65,6 +65,10 @@ a {
     background-color: #ff9270;
 }
 
+.task_item.not_versioned {
+    background-color: lightseagreen;
+}
+
 .task_item_tags {
     font-style: italic;
 }

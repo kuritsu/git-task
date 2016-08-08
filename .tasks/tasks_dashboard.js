@@ -165,6 +165,9 @@ function addTask(task, prevItem) {
         case 'M ':
             git = "modified";
             break;
+        case '??':
+            git = "not_versioned";
+            break;
     }
     var realItem = itemTemplate.format(
         ["%id%","%title%","%pending%","%estimation%","%tags%", "%git%"],
@@ -283,7 +286,6 @@ function editInputInPlace(labelElement, taskProperty, clickHandler, admitsWhites
     inputEdit.focus();
     inputEdit.focusingOut = false;
     inputEdit.on("focusout", function() {
-        event.preventDefault();
         if (inputEdit.focusingOut) {
             return;
         }
@@ -292,6 +294,8 @@ function editInputInPlace(labelElement, taskProperty, clickHandler, admitsWhites
             ((!admitsWhitespace && !inputEdit.val().isWhitespace()) || admitsWhitespace) ) {
             currentTask[taskProperty] = inputEdit.val();
             updateTask(currentTask);
+        } else {
+            addTask(currentTask, parent);
         }
     }).on("keypress", function() {
         if (event.keyCode == 13) {
@@ -311,11 +315,11 @@ function taskItemTitleClick() {
 /**
  * Fires when the tags of a task item is clicked.
  */
-function taskItemTagsClick() {
-    var label = $(this);
-    var inputEdit = editInputInPlace($(this), "tags", taskItemTagsClick);
-    inputEdit.on("focusout", function() {
-        var taskItem = label.parent(".task_item");
+function taskItemTagsClick(event) {
+    var label = $(event.target);
+    var inputEdit = editInputInPlace(label, "tags", taskItemTagsClick);
+    inputEdit.on("focusout", function(event) {
+        var taskItem = $(event.target).parents(".task_item");
         var task = findTask(taskItem.data("id"));
         if (task.tags.isWhitespace()) {
             label.html("<em>[no tags]</em>");
