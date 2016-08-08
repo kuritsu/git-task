@@ -63,7 +63,7 @@ function git(args) {
  * @param fileName File name.
  */
 function gitAdd(fileName) {
-    git('add --verbose "' + fileName + '"');
+    git('add --verbose ' + fileName.quote());
 }
 
 /**
@@ -71,7 +71,7 @@ function gitAdd(fileName) {
  * @param fileName File name.
  */
 function gitRm(fileName) {
-    git('rm --force "' + fileName + '"');
+    git('rm --force ' + fileName.quote());
 }
 
 /**
@@ -79,7 +79,7 @@ function gitRm(fileName) {
  * @param fileName File name.
  */
 function gitUnstage(fileName) {
-    git('reset HEAD "' + fileName + '"');
+    git('reset HEAD ' + fileName.quote());
 }
 
 /**
@@ -94,25 +94,54 @@ function gitGetTaskStatus(fileName) {
     if (!fileName) {
         fileName = dataDir;
     }
-    return git('status --porcelain "' + fileName + '"').split('\n');
+    return git('status --porcelain ' + fileName.quote()).split('\n');
+}
+
+/**
+ * Check out (undo changes) of a file in git.
+ * @param fileName File name.
+ */
+function gitCheckout(fileName) {
+    git('checkout -- ' + fileName.quote());
 }
 
 /**
  * Saves the object to a file.
  * @param obj Object to save.
+ * @returns The task object.
  */
 function saveObjectToFile(obj) {
     checkDataDir();
     var fileName = dataDir + path.sep + obj.id;
     fs.writeFileSync(fileName, JSON.stringify(obj, null, 2));
     console.info("File '%s' saved.", fileName);
-    if (obj.gitStatus == '??') {
-        gitUnstage(fileName);
-    } else {
-        gitAdd(fileName);
+    var result = obj;
+    switch (obj.gitStatus) {
+        case '??':
+            gitUnstage(fileName);
+            break;
+        case '--':
+            gitUnstage(fileName);
+            gitCheckout(fileName);
+            result = readObjectFromFile(obj.id);
+            break;
+        default:
+            gitAdd(fileName);
+            break;
     }
     var gitStatus = gitGetTaskStatus(fileName);
-    updateTaskGitStatus(obj, gitStatus);
+    updateTaskGitStatus(result, gitStatus);
+    return result;
+}
+
+/**
+ * Reads a task from a file.
+ * @param fileName File name.
+ */
+function readObjectFromFile(fileName) {
+    var fileContent = fs.readFileSync(dataDir + path.sep + fileName);
+    var task = JSON.parse(fileContent);
+    return task;
 }
 
 /**
@@ -174,10 +203,11 @@ function reportError(response, errorMessage, exception) {
 
 /**
  * Processes a POST request.
+ * @param path URL pathname.
  * @param data Data received.
  * @param res HTTP Response.
  */
-function postItem(data, res) {
+function postItem(path, data, res) {
     var parsedData = JSON.parse(data);
     if (!parsedData.id) {
         parsedData.id = createItemId();
@@ -187,10 +217,10 @@ function postItem(data, res) {
     }
     parsedData.updatedAt = Date.now();
     try {
-        saveObjectToFile(parsedData);
+        parsedData = saveObjectToFile(parsedData);
     }
     catch (e) {
-        return reportError(res, 'Error creating item.', e);
+        return reportError(res, 'Error processing item.', e);
     }
     reportSuccess(res, parsedData);
 }
@@ -223,8 +253,7 @@ function getItems(res) {
         var gitStatusList = gitGetTaskStatus();
         files.forEach(function (item) {
             try {
-                var fileContent = fs.readFileSync(dataDir + path.sep + item);
-                var task = JSON.parse(fileContent);
+                var task = readObjectFromFile(item);
                 updateTaskGitStatus(task, gitStatusList);
                 items.push(task);
             } catch (e) {
@@ -273,7 +302,7 @@ function requestReceived(req, res) {
     }).on("end", function() {
         switch (req.method) {
             case 'POST':
-                postItem(data, res);
+                postItem(parsedUrl.pathname, data, res);
                 break;
 
             case 'GET':

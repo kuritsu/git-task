@@ -188,6 +188,11 @@ function taskCommit(args) {
     gitCommit(message);
 }
 
+/**
+ * Quotes a string with a starting and ending symbol.
+ * @param sym Symbol. If not defined, quotes " are used.
+ * @returns {string} Quoted string.
+ */
 String.prototype.quote = function(sym) {
     if (!sym) {
         sym = '"';

@@ -56,3 +56,15 @@ String.prototype.format = function (variables, values) {
 String.prototype.isWhitespace = function () {
     return this.trim() == "";
 };
+
+/**
+ * Quotes a string with a starting and ending symbol.
+ * @param sym Symbol. If not defined, quotes " are used.
+ * @returns {string} Quoted string.
+ */
+String.prototype.quote = function(sym) {
+    if (!sym) {
+        sym = '"';
+    }
+    return sym + this + sym;
+};

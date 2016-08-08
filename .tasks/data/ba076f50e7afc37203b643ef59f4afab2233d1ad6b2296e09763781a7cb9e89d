@@ -1,0 +1,11 @@
+{
+  "status": "done",
+  "pending": "0",
+  "estimation": 1,
+  "title": "Add a method for discarding task changes in git",
+  "tags": "server",
+  "gitStatus": "A ",
+  "id": "ba076f50e7afc37203b643ef59f4afab2233d1ad6b2296e09763781a7cb9e89d",
+  "createdAt": 1470694482350,
+  "updatedAt": 1470696696398
+}
