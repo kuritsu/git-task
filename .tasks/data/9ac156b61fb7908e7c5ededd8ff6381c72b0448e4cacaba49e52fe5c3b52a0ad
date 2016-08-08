@@ -4,8 +4,8 @@
   "estimation": "1",
   "title": "Each time a task property is changed, the corresponding item box must be updated",
   "tags": "webpage",
-  "gitStatus": "A ",
+  "gitStatus": "M ",
   "id": "9ac156b61fb7908e7c5ededd8ff6381c72b0448e4cacaba49e52fe5c3b52a0ad",
   "createdAt": "Sun Aug 07 2016 20:54:12 GMT-0400 (CDT)",
-  "updatedAt": 1470621337145
+  "updatedAt": 1470684398632
 }
