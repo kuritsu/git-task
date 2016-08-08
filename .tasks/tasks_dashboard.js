@@ -350,10 +350,7 @@ function taskItemTagsClick(event) {
  */
 function taskItemPendingClick(event) {
     var label = $(event.target);
-    var inputEdit = editInputInPlace(label, "pending", taskItemPendingClick, false, "24px");
-    inputEdit.on("focusout", function(event) {
-
-    });
+    editInputInPlace(label, "pending", taskItemPendingClick, false, "24px");
 }
 
 /**
@@ -362,10 +359,7 @@ function taskItemPendingClick(event) {
  */
 function taskItemEstimationClick(event) {
     var label = $(event.target);
-    var inputEdit = editInputInPlace(label, "estimation", taskItemEstimationClick, false, "24px");
-    inputEdit.on("focusout", function(event) {
-
-    });
+    editInputInPlace(label, "estimation", taskItemEstimationClick, false, "24px");
 }
 
 /**
@@ -616,16 +610,63 @@ function registerTaskContextMenuEvents() {
     });
 }
 
-function registerTaskEditorButtonEvents() {
+/**
+ * Apply (add or remove) a collection of tags to visible tasks.
+ * @param tags Array of tags.
+ */
+function applyTags(tags) {
+    var taskItems = $(".task_item");
+    taskItems.each(function() {
+        var taskItem = $(this);
+        if (taskItem.hasClass('hidden')) {
+            return;
+        }
+        var taskId = taskItem.data("id");
+        var task = findTask(taskId);
+        var taskTags = task.tags.split(",");
+        tags.forEach(function(t) {
+            var currentTag = t.trim();
+            if (currentTag.isWhitespace()) {
+                return;
+            }
+            var tagIndex = taskTags.indexOf(currentTag);
+            if (currentTag[0] == '-') {
+                taskTags = taskTags.filter(function(item) {
+                    return item != currentTag.substr(1);
+                });
+                return;
+            }
+            if (tagIndex < 0) {
+                taskTags.push(currentTag);
+            }
+        });
+        task.tags = taskTags.join(",");
+        updateTask(task, taskItem);
+    });
+}
 
+/**
+ * Register events for the Add/remove tags textbox.
+ */
+function registerApplyTagTextboxEvents() {
+    $("#tags_textbox").keypress(function(event) {
+        if (event.keyCode == 13) {
+            var textbox = $(event.target);
+            var val = textbox.val().trim();
+            if (val.isWhitespace()) {
+                return;
+            }
+            applyTags(val.split(","));
+        }
+    });
 }
 
 $(document).ready(function() {
     createTaskStatusPanels();
     loadTasks();
     registerFilterEvents();
+    registerApplyTagTextboxEvents();
     registerTaskMenuHideEvent();
     registerTaskContextMenuEvents();
-    registerTaskEditorButtonEvents();
     $("#new_task_button").click(newTaskClick);
 });

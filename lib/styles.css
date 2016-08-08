@@ -141,7 +141,7 @@ a {
     float: left;
 }
 
-#search_textbox {
+.menu_right_section {
     float: right;
     vertical-align: middle;
 }
