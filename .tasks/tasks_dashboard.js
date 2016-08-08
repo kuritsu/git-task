@@ -108,12 +108,17 @@ function editTask(task) {
     containerForm.html(content);
     var taskEditorPanel = $(".task_editor");
     taskEditorPanel.removeClass("hidden");
-    $("#save_task_button").off("click").click(function(event) {
-        event.preventDefault();
+
+    function updateTaskValues() {
         containerForm.find("input").toArray().forEach(function(item) {
             var input = $(item);
             task[input.data("key")] = input.val();
         });
+    }
+
+    $("#save_task_button").off("click").click(function(event) {
+        event.preventDefault();
+        updateTaskValues();
         updateTask(task, function(newTask) {
             editTask(newTask);
         });
@@ -122,6 +127,14 @@ function editTask(task) {
     $("#close_task_button").off("click").click(function(event) {
         event.preventDefault();
         taskEditorPanel.addClass("hidden");
+    });
+
+    containerForm.find('input').keypress(function(event) {
+        var target = $(event.target);
+        if (event.keyCode == 13) {
+            updateTaskValues();
+            updateTask(task);
+        }
     });
 }
 
@@ -408,6 +421,28 @@ function handleSuccess(message) {
 }
 
 /**
+ * Sort tasks by a given property.
+ * @param taskArray Array of tasks.
+ * @param property Property to sort by.
+ * @param inverse true to order from greater to lower, otherwise false.
+ */
+function sortTasks(taskArray, property, inverse) {
+    if (typeof inverse === 'undefined' || inverse == null) {
+        inverse = false;
+    }
+    var sign = inverse ? -1 : 1;
+    taskArray.sort(function compare(t1, t2) {
+        if (t1[property] < t2[property]) {
+            return -1 * sign;
+        }
+        if (t1[property] > t2[property]) {
+            return sign;
+        }
+        return 0;
+    });
+}
+
+/**
  * Load the tasks from the service.
  */
 function loadTasks() {
@@ -415,6 +450,7 @@ function loadTasks() {
     var url = getBaseUrl();
     $.get(url, function(data) {
         if (data.status == "success") {
+            sortTasks(data.obj, "updatedAt", true);
             data.obj.forEach(function(item) {
                 if (typeof item.tags === 'undefined')
                     item.tags = '';

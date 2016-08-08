@@ -1,11 +1,11 @@
 {
-  "status": "open",
-  "pending": "1",
-  "estimation": "2",
-  "title": "When pressed Enter in the task edit form textboxes, the task should be saved.",
+  "status": "done",
+  "pending": "0",
+  "estimation": "1",
+  "title": "When pressed Enter in the task edit form textboxes, the task should be saved",
   "tags": "webpage",
   "id": "7349c5e642266b74e1996d4d3aedd2c81b8b97b10e44d99ad8c48d0efdf6a4b1",
-  "gitStatus": "??",
+  "gitStatus": "M ",
   "createdAt": "Sun Aug 07 2016 19:44:49 GMT-0400 (CDT)",
-  "updatedAt": 1470621362568
+  "updatedAt": 1470671634238
 }
