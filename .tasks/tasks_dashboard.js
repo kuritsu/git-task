@@ -160,7 +160,7 @@ function addTask(task, prevItem) {
         '<div class="task_item %git%" draggable="true" data-id="%id%">' +
             '<span class="task_item_title">%title%</span><br/>' +
             '<span class="task_item_pending">%pending%</span>h / ' +
-            '<span class="task_item_estimated">%estimation%</span>h<br/>' +
+            '<span class="task_item_estimation">%estimation%</span>h<br/>' +
             '<span class="task_item_tags">%tags%</span>' +
             '<div class="task_options">' +
                 '<a class="edit_task_link" href="#">E</a> ' +
@@ -212,6 +212,8 @@ function addTask(task, prevItem) {
     newChildNode.find(".task_item_tags").click(taskItemTagsClick);
     newChildNode.find(".edit_task_link").click(taskItemEditClick);
     newChildNode.find(".task_menu_link").click(taskItemMenuLinkClick);
+    newChildNode.find(".task_item_pending").click(taskItemPendingClick);
+    newChildNode.find(".task_item_estimation").click(taskItemEstimationClick);
 }
 
 /**
@@ -229,7 +231,7 @@ function getBaseUrl() {
  * @param task Task to edit.
  */
 function editTaskTitle(task) {
-    var taskDiv = $('.task_item[data-id="' + task.id + '"]');
+    var taskDiv = findTaskItem(task.id);
     var taskTitleLabel = taskDiv.children(".task_item_title");
     taskTitleLabel.click();
 }
@@ -339,6 +341,30 @@ function taskItemTagsClick(event) {
         if (task.tags.isWhitespace()) {
             label.html("<em>[no tags]</em>");
         }
+    });
+}
+
+/**
+ * Fires when the pending hours is clicked.
+ * @param event Event object.
+ */
+function taskItemPendingClick(event) {
+    var label = $(event.target);
+    var inputEdit = editInputInPlace(label, "pending", taskItemPendingClick, false, "24px");
+    inputEdit.on("focusout", function(event) {
+
+    });
+}
+
+/**
+ * Fires when the estimation hours is clicked.
+ * @param event Event object.
+ */
+function taskItemEstimationClick(event) {
+    var label = $(event.target);
+    var inputEdit = editInputInPlace(label, "estimation", taskItemEstimationClick, false, "24px");
+    inputEdit.on("focusout", function(event) {
+
     });
 }
 

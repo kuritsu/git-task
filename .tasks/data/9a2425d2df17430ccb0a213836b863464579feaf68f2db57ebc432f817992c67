@@ -1,11 +1,11 @@
 {
-  "status": "open",
-  "pending": "2",
-  "estimation": "2",
+  "status": "done",
+  "pending": "0",
+  "estimation": "1",
   "title": "Click in the pending/estimated hours in a task item should edit those values",
   "tags": "webpage",
   "id": "9a2425d2df17430ccb0a213836b863464579feaf68f2db57ebc432f817992c67",
-  "gitStatus": "??",
+  "gitStatus": "M ",
   "createdAt": "Sun Aug 07 2016 19:45:46 GMT-0400 (CDT)",
-  "updatedAt": 1470621357014
+  "updatedAt": 1470673129916
 }
