@@ -17168,3 +17168,223 @@ A  .tasks/data/ba076f50e7afc37203b643ef59f4afab2233d1ad6b2296e09763781a7cb9e89d
 
 Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//favicon.ico.
 Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks/tasks.html.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//jquery.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//config.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//common.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//tasks_dashboard.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//styles.css.
+
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data"
+
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//favicon.ico.
+Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+
+File '/home/jeff/WebstormProjects/git-task/.tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544' saved.
+Calling git: git add --verbose "/home/jeff/WebstormProjects/git-task/.tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544"
+add '.tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544'
+
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544"
+M  .tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544
+
+Got SIGTERM signal. Exiting
+Server is now listening on localhost:16100...
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks/tasks.html.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//jquery.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//config.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//common.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//tasks_dashboard.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//styles.css.
+
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data"
+M  .tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544
+
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//favicon.ico.
+Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks/tasks.html.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//jquery.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//config.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//common.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//tasks_dashboard.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//styles.css.
+
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data"
+M  .tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544
+
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//favicon.ico.
+Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+Got SIGTERM signal. Exiting
+Server is now listening on localhost:16100...
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks/tasks.html.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//jquery.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//config.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//common.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//tasks_dashboard.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//styles.css.
+
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data"
+M  .tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544
+
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//favicon.ico.
+Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+Got SIGTERM signal. Exiting
+Server is now listening on localhost:16100...
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks/tasks.html.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//jquery.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//config.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//common.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//tasks_dashboard.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//styles.css.
+
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data"
+M  .tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544
+
+Calling git: git branch --no-color
+* master
+
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//favicon.ico.
+Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+Got SIGTERM signal. Exiting
+Server is now listening on localhost:16100...
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks/tasks.html.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//jquery.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//config.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//common.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//tasks_dashboard.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//styles.css.
+
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data"
+M  .tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544
+
+Calling git: git branch --no-color
+* master
+
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//favicon.ico.
+Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+Got SIGTERM signal. Exiting
+Server is now listening on localhost:16100...
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks/tasks.html.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//jquery.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//common.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//config.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//tasks_dashboard.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//styles.css.
+
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data"
+M  .tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544
+
+Calling git: git branch --no-color
+* master
+
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//favicon.ico.
+Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks/tasks.html.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//jquery.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//config.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//common.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//tasks_dashboard.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//styles.css.
+
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data"
+M  .tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544
+
+Calling git: git branch --no-color
+* example
+  master
+
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//favicon.ico.
+Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks/tasks.html.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//jquery.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//config.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//common.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//tasks_dashboard.js.
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//styles.css.
+
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data"
+M  .tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544
+
+Calling git: git branch --no-color
+* master
+
+
+Retrieving file /home/jeff/WebstormProjects/git-task/.tasks//favicon.ico.
+Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+
+File '/home/jeff/WebstormProjects/git-task/.tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544' saved.
+Calling git: git add --verbose "/home/jeff/WebstormProjects/git-task/.tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544"
+add '.tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544'
+
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544"
+M  .tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544
+
+
+File '/home/jeff/WebstormProjects/git-task/.tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544' saved.
+Calling git: git add --verbose "/home/jeff/WebstormProjects/git-task/.tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544"
+add '.tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544'
+
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544"
+M  .tasks/data/56691fed57299eea2e1a27f5f67ed9eced72f8a33869a44c3786b5209b760544
+

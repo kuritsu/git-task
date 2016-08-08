@@ -112,6 +112,10 @@ a {
     background-color: moccasin;
 }
 
+#branch_name {
+    font-weight: bold;
+}
+
 .hidden {
     display: none;
 }

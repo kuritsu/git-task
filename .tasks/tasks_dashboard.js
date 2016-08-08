@@ -463,6 +463,14 @@ function sortTasks(taskArray, property, inverse) {
 }
 
 /**
+ * Displays the branch name.
+ * @param branchName Branch name.
+ */
+function showBranch(branchName) {
+    $("#branch_name").html(branchName);
+}
+
+/**
  * Load the tasks from the service.
  */
 function loadTasks() {
@@ -470,13 +478,14 @@ function loadTasks() {
     var url = getBaseUrl();
     $.get(url, function(data) {
         if (data.status == "success") {
-            sortTasks(data.obj, "updatedAt", true);
-            data.obj.forEach(function(item) {
+            sortTasks(data.obj.tasks, "updatedAt", true);
+            data.obj.tasks.forEach(function(item) {
                 if (typeof item.tags === 'undefined')
                     item.tags = '';
                 addTask(item);
             });
             $(".loading").addClass('hidden');
+            showBranch(data.obj.meta.branch);
         }
     }).fail(function(error) {
         handleError(error);
