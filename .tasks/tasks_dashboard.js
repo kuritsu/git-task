@@ -4,6 +4,8 @@
 
 var tasks = [];
 var draggedTask = null;
+const READONLY_FIELDS = ["id", "createdAt", "updatedAt", "gitStatus", "status"];
+const DATE_FIELDS = ["createdAt", "updatedAt"];
 
 /**
  * Finds the container associated with an status.
@@ -21,10 +23,11 @@ function getContainerFor(status) {
  */
 function Task() {
     this.status = 'open';
-    this.pending = 2;
-    this.estimation = 2;
+    this.pending = 1;
+    this.estimation = 1;
     this.title = 'New task';
     this.tags = '';
+    this.gitStatus = 'A ';
 }
 
 /**
@@ -56,6 +59,22 @@ function findTaskItem(id) {
 }
 
 /**
+ * Indicates if a field is read-only or not.
+ * @param fieldName Field name.
+ */
+function isReadOnlyField(fieldName) {
+    return READONLY_FIELDS.indexOf(fieldName) > -1;
+}
+
+/**
+ * Indicates if a field is a Date or not.
+ * @param fieldName Field name.
+ */
+function isDateField(fieldName) {
+    return DATE_FIELDS.indexOf(fieldName) > -1;
+}
+
+/**
  * Edits a task in a form.
  * @param task Task to edit.
  */
@@ -67,7 +86,7 @@ function editTask(task) {
         '<tr>' +
             '<td class="task_edit_form_keys_column">%key%: </td>' +
             '<td class="task_edit_form_values_column">' +
-                '<input type="text" data-key="%key%" class="task_edit_input" value="%value%" %attrs% />' +
+                '<input type="text" data-key="%key%" class="task_edit_input %attrs%" value="%value%" %attrs% />' +
             '</td>' +
         '</tr>';
     keys.sort();
@@ -77,8 +96,11 @@ function editTask(task) {
         if (typeof encodedValue === 'string') {
             encodedValue = encodedValue.replaceAll('"', "&quot;").replaceAll("'", '&apos;');
         }
-        if (key == "id") {
+        if (isReadOnlyField(key)) {
             attrs = "readonly";
+        }
+        if (isDateField(key)) {
+            encodedValue = (new Date(encodedValue)).toString();
         }
         content += template.format(["%key%", "%value%", "%attrs%"], [key, encodedValue, attrs]);
     });
@@ -92,9 +114,9 @@ function editTask(task) {
             var input = $(item);
             task[input.data("key")] = input.val();
         });
-        updateTask(task);
-        var taskItem = findTaskItem(task.id);
-        addTask(task, taskItem);
+        updateTask(task, function(newTask) {
+            editTask(newTask);
+        });
     });
 
     $("#close_task_button").off("click").click(function(event) {
@@ -137,9 +159,10 @@ function addTask(task, prevItem) {
     var git = "";
     switch (task.gitStatus) {
         case 'A ':
+        case 'AM':
             git = "added";
             break;
-        case ' M':
+        case 'M ':
             git = "modified";
             break;
     }
@@ -214,11 +237,20 @@ function newTaskClick() {
 
 /**
  * Updates a task info on the server.
+ * @param task Task to update.
+ * @param callback Method to call after a successful post.
  */
-function updateTask(task) {
+function updateTask(task, callback) {
     var url = getBaseUrl();
     $.post(url, JSON.stringify(task), function(res) {
         handleSuccess('Task updated.');
+        var taskIndex = tasks.indexOf(task);
+        tasks[taskIndex] = res.obj;
+        var taskItem = findTaskItem(task.id);
+        addTask(res.obj, taskItem);
+        if (callback) {
+            callback(res.obj);
+        }
     }).fail(function(error){
         handleError(error);
     });
@@ -261,9 +293,6 @@ function editInputInPlace(labelElement, taskProperty, clickHandler, admitsWhites
             currentTask[taskProperty] = inputEdit.val();
             updateTask(currentTask);
         }
-        labelElement.html(currentTask[taskProperty]);
-        labelElement.click(clickHandler);
-        inputEdit.replaceWith(labelElement);
     }).on("keypress", function() {
         if (event.keyCode == 13) {
             inputEdit.focusout();
@@ -335,7 +364,7 @@ function taskItemMenuLinkClick(event) {
 
     var includeInCommit = $("#include_commit_task_menu_item");
     var excludeFromCommit = $("#exclude_commit_task_menu_item");
-    if (task.gitStatus == '??') {
+    if (task.gitStatus == '??' || task.gitStatus[0] == ' ') {
         includeInCommit.removeClass('hidden');
         excludeFromCommit.addClass('hidden');
     } else {
@@ -479,10 +508,8 @@ function registerTaskMenuHideEvent() {
  */
 function unstageTask(taskId) {
     var task = findTask(taskId);
-    var taskItem = findTaskItem(taskId);
     task.gitStatus = '??';
     updateTask(task);
-    addTask(task, taskItem);
 }
 
 /**
@@ -491,10 +518,8 @@ function unstageTask(taskId) {
  */
 function stageTask(taskId) {
     var task = findTask(taskId);
-    var taskItem = findTaskItem(taskId);
     task.gitStatus = 'A ';
     updateTask(task);
-    addTask(task, taskItem);
 }
 
 /**

@@ -31,7 +31,8 @@ a {
 }
 
 .readonly {
-
+    background-color: lightgray;
+    border: 1px solid gray;
 }
 
 .task_editor {

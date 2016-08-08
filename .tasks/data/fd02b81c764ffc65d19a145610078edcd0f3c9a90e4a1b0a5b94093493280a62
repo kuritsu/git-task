@@ -1,0 +1,11 @@
+{
+  "status": "done",
+  "pending": "0",
+  "estimation": "1",
+  "title": "Display dates as a date string, not a number",
+  "tags": "webpage",
+  "gitStatus": "A ",
+  "id": "fd02b81c764ffc65d19a145610078edcd0f3c9a90e4a1b0a5b94093493280a62",
+  "createdAt": "Sun Aug 07 2016 20:04:28 GMT-0400 (CDT)",
+  "updatedAt": 1470621338933
+}
