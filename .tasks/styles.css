@@ -65,7 +65,7 @@ a {
     background-color: #ff9270;
 }
 
-.task_item.not_versioned {
+.task_item.not_included {
     background-color: lightseagreen;
 }
 
