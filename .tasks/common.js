@@ -9,10 +9,9 @@
  */
 String.prototype.replaceAll = function(whichText, withText) {
     var inText = this.toString();
-    while (inText.indexOf(whichText) >= 0) {
-        inText = inText.replace(whichText, withText);
-    }
-    return inText;
+    var parts = inText.split(whichText);
+    var result = parts.join(withText);
+    return result;
 };
 
 /**

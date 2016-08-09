@@ -1,0 +1,11 @@
+{
+  "status": "done",
+  "pending": "0",
+  "estimation": "1",
+  "title": "Corrected that the edit task form was saving read-only values.",
+  "tags": "webpage,bug",
+  "gitStatus": "A ",
+  "id": "cff8da194b99f115f80a0935f8108ebe79ca5183b17412f988e32548b2c7cef7",
+  "createdAt": 1470706545374,
+  "updatedAt": 1470706701581
+}

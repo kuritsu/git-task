@@ -1,0 +1,11 @@
+{
+  "status": "done",
+  "pending": "0",
+  "estimation": 1,
+  "title": "It cannot discard changes on added or excluded tasks",
+  "tags": "webpage,bug",
+  "gitStatus": "A ",
+  "id": "b55239df5a5dd782b7f4a5f5d4862f75060fd289c3f76eb33cd0ade477df35c1",
+  "createdAt": 1470707948527,
+  "updatedAt": 1470708078914
+}

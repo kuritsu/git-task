@@ -1,0 +1,11 @@
+{
+  "pending": "0",
+  "estimation": "1",
+  "title": "When a task is dropped in the label of the same task or another task, it loses the status attribute",
+  "tags": "webpage,bug",
+  "gitStatus": "A ",
+  "status": "done",
+  "id": "3bd5bed3a2def4e1eab802cfded50b45081783067b8113019f6fd9f0d0689cfa",
+  "createdAt": 1470708880068,
+  "updatedAt": 1470709422593
+}
