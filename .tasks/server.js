@@ -311,6 +311,21 @@ function deleteItem(itemId, res) {
 }
 
 /**
+ * Commits the git-task directory.
+ * @param message Commit message.
+ * @param res HTTP response.
+ */
+function commit(message, res) {
+    try {
+        gitCommit(message);
+        reportSuccess(res);
+    }
+    catch (e) {
+        reportError(res, "Error committing tasks.", e);
+    }
+}
+
+/**
  * Fires when the server receives a request.
  * @param req HTTP Request.
  * @param res HTTP Response.
@@ -338,7 +353,7 @@ function requestReceived(req, res) {
                     return;
                 }
                 if (parsedUrl.pathname == "/tasks/commit") {
-                    gitCommit(data.msg);
+                    commit(data.msg, res);
                     return;
                 }
                 postItem(data, res);
