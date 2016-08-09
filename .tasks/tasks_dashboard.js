@@ -370,6 +370,10 @@ function taskItemEstimationClick(event) {
  * @param taskId Task ID.
  */
 function deleteTask(taskId) {
+    var task = findTask(taskId);
+    if (!confirm("Are you sure you want to delete task " + task.title.quote() + " ?")) {
+        return;
+    }
     $.ajax(getBaseUrl() + "/" + taskId, {
         method: "DELETE",
         success: function(data) {
