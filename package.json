@@ -1,0 +1,15 @@
+{
+  "name": "git-task",
+  "version": "0.1.0",
+  "description": "Manage tasks with a local website in a Git repository.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "git",
+    "tasks"
+  ],
+  "author": "Jeffrey Alvarez Massón <kuritsu@gmail.com>",
+  "license": "MIT"
+}

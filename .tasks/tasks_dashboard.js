@@ -559,7 +559,7 @@ function createTaskStatusPanels() {
  * @param value Space separated values.
  */
 function filterTasksBy(value) {
-    $(".task_item").addClass("hidden");
+    $(".task_item:not(.legend)").addClass("hidden");
     var terms = value.split(" ");
     tasks.forEach(function(task) {
         var text = JSON.stringify(task);

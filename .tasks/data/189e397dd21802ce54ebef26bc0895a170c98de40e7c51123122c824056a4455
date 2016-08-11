@@ -1,0 +1,11 @@
+{
+  "status": "done",
+  "pending": "0",
+  "estimation": 1,
+  "title": "When a filter is applied, the legend items at the end of the page disappear",
+  "tags": "webpage,bug",
+  "gitStatus": "A ",
+  "id": "189e397dd21802ce54ebef26bc0895a170c98de40e7c51123122c824056a4455",
+  "createdAt": 1470951275585,
+  "updatedAt": 1470951731375
+}

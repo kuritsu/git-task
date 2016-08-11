@@ -1,11 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env node
 
-DIR=`dirname $0`
-NODEEXE=`which node`
-test -n "$NODEEXE" || NODEEXE=`which nodejs`
-if [ -z "$NODEEXE" ]; then
-    echo "No nodejs binary found. Exiting."
-    exit -1
-fi
-
-"$NODEEXE" "$DIR/git-task.js" "$@"
+const cli = require('git-task/lib/cli');
+cli.run();
