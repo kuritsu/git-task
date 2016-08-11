@@ -86,6 +86,7 @@ a {
     width: 30%;
     text-align: left;
     vertical-align: top;
+    min-height: 100px;
 }
 
 .back0 {

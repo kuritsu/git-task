@@ -491,7 +491,7 @@ function sortTasks(taskArray, property, inverse) {
  * @param branchName Branch name.
  */
 function showBranch(branchName) {
-    $("#branch_name").html(branchName);
+    $("#branch_name").html(branchName.isWhitespace() ? "[None]" : branchName);
 }
 
 /**
@@ -512,6 +512,7 @@ function loadTasks() {
             showBranch(data.obj.meta.branch);
         }
     }).fail(function(error) {
+        $(".loading").addClass('hidden');
         handleError(error);
     });
 }

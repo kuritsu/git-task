@@ -1,0 +1,11 @@
+{
+  "status": "in_progress",
+  "pending": "0",
+  "estimation": 1,
+  "title": "After running git task init & git task start, the webpage display an error loading tasks. (Found in new git repositories without a branch)",
+  "tags": "webpage,bug",
+  "gitStatus": "A ",
+  "id": "678aae03abad1afed4df3ffccfe703de3562635484b337fa92f1882c7bab4677",
+  "createdAt": 1470952938673,
+  "updatedAt": 1470954958013
+}
