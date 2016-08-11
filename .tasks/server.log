@@ -404,3 +404,31 @@ Calling git: git branch --no-color
 
 GET: /favicon.ico.
 Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+
+GET: /.
+
+GET: /jquery.js.
+
+GET: /config.js.
+
+GET: /common.js.
+
+GET: /tasks_dashboard.js.
+
+GET: /styles.css.
+
+GET: /tasks/
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data"
+
+Calling git: git branch --no-color
+* master
+
+GET: /favicon.ico.
+Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+
+POST: /tasks/
+File '/home/jeff/WebstormProjects/git-task/.tasks/data/678aae03abad1afed4df3ffccfe703de3562635484b337fa92f1882c7bab4677' saved.
+Calling git: git add --verbose "/home/jeff/WebstormProjects/git-task/.tasks/data/678aae03abad1afed4df3ffccfe703de3562635484b337fa92f1882c7bab4677"
+add '.tasks/data/678aae03abad1afed4df3ffccfe703de3562635484b337fa92f1882c7bab4677'
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data/678aae03abad1afed4df3ffccfe703de3562635484b337fa92f1882c7bab4677"
+M  .tasks/data/678aae03abad1afed4df3ffccfe703de3562635484b337fa92f1882c7bab4677
