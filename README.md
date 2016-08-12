@@ -64,7 +64,7 @@ Locate the git-task Node.js script either in:
  
 or 
 
-- The global Node.js modules: /path/to/your/nodejs/home/lib/node_modules/git-task/
+- The global Node.js modules: /path/to/your/nodejs/home/lib/node_modules/git-task/bin
 
 Make sure that the git-task script (Node.js) has execution permissions (```chmod a+x path/to/git-task```).
 
