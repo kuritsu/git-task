@@ -37,7 +37,7 @@ Run *npm* from the folder of your git repository (or use *-g* if you want it glo
 ```npm help install``` for more details):
 
 ``` bash
-$ npm install git-task
+$ npm install git-plugin-task
 ```
 
 or

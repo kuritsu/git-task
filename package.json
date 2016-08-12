@@ -1,5 +1,5 @@
 {
-  "name": "git-task",
+  "name": "git-plugin-task",
   "version": "0.1.0",
   "description": "Manage tasks with a local website in a Git repository.",
   "main": "index.js",
