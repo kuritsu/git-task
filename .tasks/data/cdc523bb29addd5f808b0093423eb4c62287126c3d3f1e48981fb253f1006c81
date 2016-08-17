@@ -1,0 +1,11 @@
+{
+  "status": "done",
+  "pending": "0",
+  "estimation": 1,
+  "title": "git-task npm package renamed to git-plugin-task (git-task already exists).",
+  "tags": "bug",
+  "gitStatus": "A ",
+  "id": "cdc523bb29addd5f808b0093423eb4c62287126c3d3f1e48981fb253f1006c81",
+  "createdAt": 1471447738605,
+  "updatedAt": 1471447814193
+}
