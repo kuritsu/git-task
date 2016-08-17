@@ -3,6 +3,7 @@
 ## Tags
 
 - bug: Bugs!
+- cli: Command line interface (git plugin).
 - doc: Documentation.
 - package: Project packaging.
 - project: General project structure. 

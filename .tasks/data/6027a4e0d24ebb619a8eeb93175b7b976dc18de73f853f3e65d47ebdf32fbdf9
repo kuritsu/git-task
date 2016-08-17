@@ -1,0 +1,11 @@
+{
+  "status": "open",
+  "pending": 1,
+  "estimation": 1,
+  "title": "Implement git task add (add a new task and display its generated id)",
+  "tags": "cli",
+  "gitStatus": "A ",
+  "id": "6027a4e0d24ebb619a8eeb93175b7b976dc18de73f853f3e65d47ebdf32fbdf9",
+  "createdAt": 1471461656416,
+  "updatedAt": 1471461743906
+}
