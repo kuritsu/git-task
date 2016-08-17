@@ -2690,3 +2690,174 @@ Calling git: git add --verbose "/home/jeff/WebstormProjects/git-task/.tasks/data
 add '.tasks/data/a2cbd875b5239901c3b043886823ed8bd1c1c29d2448e38ce57145b3d51ad646'
 Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data/a2cbd875b5239901c3b043886823ed8bd1c1c29d2448e38ce57145b3d51ad646"
 M  .tasks/data/a2cbd875b5239901c3b043886823ed8bd1c1c29d2448e38ce57145b3d51ad646
+
+GET: /.
+
+GET: /jquery.js.
+
+GET: /marked.min.js.
+
+GET: /config.js.
+
+GET: /common.js.
+
+GET: /tasks_dashboard.js.
+
+GET: /styles.css.
+
+GET: /tasks/
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data"
+
+Calling git: git branch --no-color
+* master
+
+GET: /README.md.
+
+GET: /favicon.ico.
+Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+
+GET: /.
+
+GET: /jquery.js.
+
+GET: /marked.min.js.
+
+GET: /config.js.
+
+GET: /common.js.
+
+GET: /tasks_dashboard.js.
+
+GET: /styles.css.
+
+GET: /tasks/
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data"
+
+Calling git: git branch --no-color
+* master
+
+GET: /README.md.
+
+GET: /favicon.ico.
+Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+
+GET: /.
+
+GET: /jquery.js.
+
+GET: /marked.min.js.
+
+GET: /config.js.
+
+GET: /common.js.
+
+GET: /tasks_dashboard.js.
+
+GET: /styles.css.
+
+GET: /tasks/
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data"
+
+Calling git: git branch --no-color
+* master
+
+GET: /README.md.
+
+GET: /favicon.ico.
+Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+Got SIGTERM signal. Exiting
+Calling git: git rev-parse --show-toplevel
+/home/jeff/WebstormProjects/git-task
+Server is now listening on localhost:16100...
+
+GET: /.
+
+GET: /jquery.js.
+
+GET: /marked.min.js.
+
+GET: /config.js.
+
+GET: /common.js.
+
+GET: /tasks_dashboard.js.
+
+GET: /styles.css.
+
+GET: /tasks/
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data"
+
+Calling git: git branch --no-color
+* master
+
+GET: /README.md.
+
+GET: /favicon.ico.
+Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+
+GET: /.
+
+GET: /jquery.js.
+
+GET: /marked.min.js.
+
+GET: /config.js.
+
+GET: /common.js.
+
+GET: /tasks_dashboard.js.
+
+GET: /styles.css.
+
+GET: /tasks/
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data"
+
+Calling git: git branch --no-color
+* master
+
+GET: /README.md.
+
+GET: /favicon.ico.
+Invalid access to file '/home/jeff/WebstormProjects/git-task/.tasks//favicon.ico'.
+
+POST: /tasks/
+File '/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471' saved.
+Calling git: git add --verbose "/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471"
+add '.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471'
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471"
+A  .tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471
+
+POST: /tasks/
+File '/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471' saved.
+Calling git: git add --verbose "/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471"
+add '.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471'
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471"
+A  .tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471
+
+POST: /tasks/
+File '/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471' saved.
+Calling git: git add --verbose "/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471"
+add '.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471'
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471"
+A  .tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471
+
+POST: /tasks/
+File '/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471' saved.
+Calling git: git add --verbose "/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471"
+add '.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471'
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471"
+A  .tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471
+
+POST: /tasks/
+File '/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471' saved.
+Calling git: git add --verbose "/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471"
+add '.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471'
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471"
+A  .tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471
+
+POST: /tasks/
+File '/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471' saved.
+Calling git: git add --verbose "/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471"
+add '.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471'
+Calling git: git status --porcelain "/home/jeff/WebstormProjects/git-task/.tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471"
+A  .tasks/data/06245e941ad9e2cf49a273ae58b13a7594261ea420f1ec2e2a9241e81cef0471

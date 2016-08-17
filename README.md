@@ -164,6 +164,11 @@ Choose *Include in commit* to undo this operation.
 Changes in tasks can be discarded from git after you click the *M* link of the task and choose *Discard changes*.
 The task will lose all the changes you made and restore it (via ```git checkout```).
 
+### Sorting tasks
+
+Choose an option from the *- Sort here -* combobox, and the tasks will be sorted by that property. Check/uncheck the 
+*Reverse* box for inverting the current sort order.
+
 ### Filtering tasks
 
 Write a text in the *Filter / search here* textbox to filter the tasks shown in the page. All task attributes are 
