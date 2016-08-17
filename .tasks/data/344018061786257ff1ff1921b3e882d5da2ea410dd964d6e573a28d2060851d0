@@ -1,0 +1,11 @@
+{
+  "status": "done",
+  "pending": "0",
+  "estimation": 1,
+  "title": "Rename git-task to git-plugin-task in cli.js",
+  "tags": "cli,bug",
+  "gitStatus": "A ",
+  "id": "344018061786257ff1ff1921b3e882d5da2ea410dd964d6e573a28d2060851d0",
+  "createdAt": 1471470164846,
+  "updatedAt": 1471470203804
+}
