@@ -1,8 +1,9 @@
-# git-task readme
+# Tasks readme
 
 ## Tags
 
 - bug: Bugs!
+- doc: Documentation.
 - package: Project packaging.
 - project: General project structure. 
 - server: Server service.

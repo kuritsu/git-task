@@ -18,7 +18,7 @@ associating tasks and commits manually. Of course, multiple tasks can be include
 ### Installation
 
 git-task requires [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/) (recommended v.4.4.7 or greater), 
-but an Internet connection or *npm* repository is not need, since you can copy the git-task package in a compressed 
+but an Internet connection or *npm* repository is not needed, since you can copy the git-task package in a compressed 
 file from somebody else, for example.
 
 #### Via GitHub
@@ -60,22 +60,23 @@ $ npm install git-task.tar.gz
 
 Locate the git-task Node.js script either in:
 
-- The Node.js locally installed modules: /path/to/your/project/node_modules/git-task/bin
+- The Node.js locally installed modules: /path/to/your/project/node_modules/git-plugin-task/bin
  
 or 
 
-- The global Node.js modules: /path/to/your/nodejs/home/lib/node_modules/git-task/bin
+- The global Node.js modules: /path/to/your/nodejs/home/lib/node_modules/git-plugin-task/bin
 
 Make sure that the git-task script (Node.js) has execution permissions (```chmod a+x path/to/git-task```).
 
-Then include that directory in your PATH environment variable (i.e., use ```export PATH=$PATH:path_to_git_task_script_dir```
-in a Bash session or add it in your *~/.bashrc* or *~/.profile* files and then reopen a shell session).
+Then include that directory in your PATH environment variable (i.e., use 
+```export PATH=$PATH:path_to_git_task_script_dir``` in a Bash session or add it in your ```~/.bashrc``` 
+or ```~/.profile``` files and then reopen/reload a shell session).
 
 ##### Windows:
 
 *Comming soon!*
 
-#### Run git-task init
+#### Initializing and running git-task
 
 Now you should be able to run at your git repository:
 
@@ -104,7 +105,7 @@ will fail.
 
 Open a web browser and enter the site address: *http://localhost:16100*. You should see a web page like this:
 
-<img src="images/screenshot1.png" alt="git-task web page" />
+<img src="http://github.com/kuritsu/git-task/images/screenshot1.png" alt="git-task web page" />
 
 You can stop the server executing:
 
@@ -161,7 +162,7 @@ Choose *Include in commit* to undo this operation.
 ### Discarding changes in tasks
 
 Changes in tasks can be discarded from git after you click the *M* link of the task and choose *Discard changes*.
-The task will lose all the changes you made and restore it (via git checkout).
+The task will lose all the changes you made and restore it (via ```git checkout```).
 
 ### Filtering tasks
 
@@ -173,9 +174,15 @@ included in the filter (ids, title, tags, etc).
 **NOTICE**: Mass-adding and mass-removing tags affect all tasks displayed in the page. Don't use this feature 
 unless you filter the tasks before. 
 
-Tags can be added or removed from a set of (or all) tasks. Type a tag name in the *tag1,tag2,-tag3,-tag4* textbox
-and press Enter to add the task. Prepend the tag name with a *-* to remove the tag. When you press Enter all 
-visible tasks are modified with the new tags added or removed. This causes the tasks to be updated (changed in git).
+Tags can be added or removed from a set of (or all) tasks. Type tag names separated by commas in the 
+*tag1,tag2,-tag3,-tag4* textbox and press Enter to add the tag(s). Prepend the tag name with a *-* to 
+remove the tag. When you press Enter all visible tasks are modified with the new tags added or removed. 
+This causes the tasks to be updated (changed in git).
+
+### Add a README to the web page
+
+A README.md (Markdown) can be added to the .tasks folder and will be displayed at the end of the web page.
+Use your preferred editor to change it.  
 
 ## Bugs
 
