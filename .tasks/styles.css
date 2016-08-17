@@ -9,6 +9,12 @@ input {
     font-size: 11pt;
 }
 
+select {
+    font-family: sans-serif;
+    font-size: 11pt;
+    height: 22px;
+}
+
 .header1 {
     font-size: 11pt;
     font-weight: bold;
@@ -34,6 +40,10 @@ a {
 .readonly {
     background-color: lightgray;
     border: 1px solid gray;
+}
+
+.sort_here {
+    font-style: italic;
 }
 
 .task_editor {

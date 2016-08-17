@@ -475,7 +475,7 @@ function sortTasks(taskArray, property, inverse) {
         inverse = false;
     }
     var sign = inverse ? -1 : 1;
-    taskArray.sort(function compare(t1, t2) {
+    taskArray.sort(function(t1, t2) {
         if (t1[property] < t2[property]) {
             return -1 * sign;
         }
@@ -495,6 +495,35 @@ function showBranch(branchName) {
 }
 
 /**
+ * Load the Sort combo with the existing properties.
+ * @param props Array of property names.
+ */
+function loadSortCombo(props) {
+    props.sort();
+    var sortCombo = $("#sort_combo");
+    var reverseCheckbox = $("#reverse_sort_checkbox");
+    var itemTemplate = '<option value="%key%">%key%</option>';
+    props.forEach(function(item) {
+        sortCombo.append(itemTemplate.format(["%key%"], [item]));
+    });
+
+    sortCombo.on("click", function() {
+        if (sortCombo.val() == "sort_here") {
+            return;
+        }
+        sortTasks(tasks, sortCombo.val(), reverseCheckbox.prop("checked"));
+        $(".task_item:not(.legend)").remove();
+        tasks.forEach(function(t) {
+            addTask(t);
+        });
+    });
+
+    reverseCheckbox.click(function() {
+        sortCombo.click();
+    });
+}
+
+/**
  * Load the tasks from the service.
  */
 function loadTasks() {
@@ -503,11 +532,19 @@ function loadTasks() {
     $.get(url, function(data) {
         if (data.status == "success") {
             sortTasks(data.obj.tasks, "updatedAt", true);
+            var properties = [];
             data.obj.tasks.forEach(function(item) {
                 if (typeof item.tags === 'undefined')
                     item.tags = '';
+                var keys = Object.keys(item);
+                keys.forEach(function(k) {
+                    if (properties.indexOf(k) < 0 && k != 'undefined') {
+                        properties.push(k);
+                    }
+                });
                 addTask(item);
             });
+            loadSortCombo(properties);
             $(".loading").addClass('hidden');
             showBranch(data.obj.meta.branch);
         }

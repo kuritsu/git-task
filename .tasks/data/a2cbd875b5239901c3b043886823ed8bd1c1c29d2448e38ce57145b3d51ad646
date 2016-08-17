@@ -1,11 +1,11 @@
 {
-  "status": "open",
-  "pending": 1,
+  "status": "done",
+  "pending": "0",
   "estimation": 1,
   "title": "Order tasks by a given property, in both ways",
   "tags": "webpage",
-  "gitStatus": "??",
+  "gitStatus": "M ",
   "id": "a2cbd875b5239901c3b043886823ed8bd1c1c29d2448e38ce57145b3d51ad646",
   "createdAt": 1470670933696,
-  "updatedAt": 1470684398389
+  "updatedAt": 1471460808206
 }
