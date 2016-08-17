@@ -1,11 +1,11 @@
 {
-  "status": "open",
+  "status": "in_progress",
   "pending": 1,
   "estimation": 1,
   "title": "Implement git task list (show tasks in plain or JSON view)",
   "tags": "cli",
-  "gitStatus": "A ",
+  "gitStatus": "  ",
   "id": "b258d7e7ad0fe454024d6b0150ae57553d226c166d346332bd700e43e9f92f38",
   "createdAt": 1471461681613,
-  "updatedAt": 1471461725014
+  "updatedAt": 1471463740382
 }
