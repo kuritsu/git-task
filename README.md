@@ -105,7 +105,7 @@ will fail.
 
 Open a web browser and enter the site address: *http://localhost:16100*. You should see a web page like this:
 
-<img src="http://github.com/kuritsu/git-task/images/screenshot1.png" alt="git-task web page" />
+<img src="https://github.com/kuritsu/git-task/blob/master/images/screenshot1.png" alt="git-task web page" />
 
 You can stop the server executing:
 
