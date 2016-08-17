@@ -9,10 +9,11 @@ input {
     font-size: 11pt;
 }
 
-h1 {
+.header1 {
     font-size: 11pt;
     font-weight: bold;
     text-align: center;
+    display: block;
 }
 
 a {
@@ -86,6 +87,7 @@ a {
     width: 30%;
     text-align: left;
     vertical-align: top;
+    min-height: 100px;
 }
 
 .back0 {

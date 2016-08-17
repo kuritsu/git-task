@@ -729,6 +729,15 @@ function commitClick(event) {
 }
 
 /**
+ * Load a markdown README.md in the .tasks directory.
+ */
+function loadReadme() {
+    $.get("/README.md", function(data) {
+        $("#readme").html(marked(data));
+    });
+}
+
+/**
  * Register the events of the main menu items.
  */
 function registerMainMenuEvents() {
@@ -745,4 +754,5 @@ $(document).ready(function() {
 
     createTaskStatusPanels();
     loadTasks();
+    loadReadme();
 });
