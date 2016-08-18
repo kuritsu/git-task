@@ -75,6 +75,37 @@ function isDateField(fieldName) {
 }
 
 /**
+ * Adds a new field to the tasks in the list.
+ * @param taskList Array of tasks.
+ * @param fieldName Field name.
+ * @param defaultValue Default field value.
+ */
+function addField(taskList, fieldName, defaultValue) {
+    taskList.forEach(function(item) {
+        var keys = Object.keys(item);
+        if (keys.indexOf(fieldName) > -1) {
+            return;
+        }
+        item[fieldName] = defaultValue;
+        //TODO: Do a batch update
+        updateTask(item);
+    });
+}
+
+/**
+ * Deletes a field from tasks in a list.
+ * @param taskList Array of tasks.
+ * @param fieldName Field name.
+ */
+function deleteField(taskList, fieldName) {
+    taskList.forEach(function(item) {
+        item[fieldName] = undefined;
+        //TODO: Do a batch update
+        updateTask(item);
+    });
+}
+
+/**
  * Edits a task in a form.
  * @param task Task to edit.
  */
@@ -84,7 +115,7 @@ function editTask(task) {
     var content = '<table class="form_table" cellpadding="3" cellspacing="3">';
     var template =
         '<tr>' +
-            '<td class="task_edit_form_keys_column">%key%: </td>' +
+            '<td class="task_edit_form_keys_column">%key%: <a class="delete_field_link %hidden%" href="#" data-field="%key%">X</a> </td>' +
             '<td class="task_edit_form_values_column">' +
                 '<input type="text" data-key="%key%" class="task_edit_input %attrs%" value="%value%" %attrs% />' +
             '</td>' +
@@ -93,6 +124,9 @@ function editTask(task) {
     keys.forEach(function(key) {
         var attrs = "";
         var encodedValue = task[key];
+        if (typeof encodedValue === 'undefined') {
+            return;
+        }
         if (typeof encodedValue === 'string') {
             encodedValue = encodedValue.replaceAll('"', "&quot;").replaceAll("'", '&apos;');
         }
@@ -102,12 +136,55 @@ function editTask(task) {
         if (isDateField(key)) {
             encodedValue = (new Date(encodedValue)).toString();
         }
-        content += template.format(["%key%", "%value%", "%attrs%"], [key, encodedValue, attrs]);
+        content += template.format(["%key%", "%value%", "%attrs%", "%hidden%"], [key, encodedValue, attrs, attrs == "readonly" ? "hidden" : ""]);
     });
+    content +=
+        '<tr>' +
+            '<td class="task_edit_form_keys_column">' +
+                '<a id="add_field_link" href="#">Add field</a>'  +
+            '</td>' +
+            '<td class="task_edit_form_values_column">' +
+                '<input id="add_field_to_all_checkbox" type="checkbox"><label for="add_field_to_all_checkbox">To all tasks</label>'  +
+            '</td>' +
+        '</tr>';
     content += '</table>';
     containerForm.html(content);
     var taskEditorPanel = $(".task_editor");
     taskEditorPanel.removeClass("hidden");
+
+    taskEditorPanel.find("#add_field_link").click(function(event) {
+        var fieldName = prompt("Enter the field name:", "");
+        if (fieldName == null) {
+            return;
+        }
+        var fieldDefaultValue = prompt("Enter the field default value:", "");
+        if (fieldDefaultValue == null) {
+            return;
+        }
+        var taskList = [];
+        if ($("#add_field_to_all_checkbox").prop("checked")) {
+            taskList = tasks;
+        } else {
+            taskList = [task];
+        }
+        addField(taskList, fieldName, fieldDefaultValue);
+        editTask(task);
+    });
+
+    taskEditorPanel.find(".delete_field_link").click(function(event) {
+        var deleteLink = $(event.target);
+        if (!confirm("Field %s will be deleted. Are you sure?".format(["%s"], [deleteLink.data("field")]))) {
+            return;
+        }
+        var taskList = [];
+        if (confirm("Delete field %s in ALL tasks?".format(["%s"], [deleteLink.data("field")]))) {
+            taskList = tasks;
+        } else {
+            taskList = [task];
+        }
+        deleteField(taskList, deleteLink.data("field"));
+        editTask(task);
+    });
 
     function updateTaskValues() {
         containerForm.find("input").toArray().forEach(function(item) {
@@ -670,27 +747,32 @@ function discardTaskChanges(taskId) {
  */
 function registerTaskContextMenuEvents() {
     $("#edit_task_menu_item").click(function(event) {
+        event.preventDefault();
         var taskId = $("#task_menu").data("id");
         var task = findTask(taskId);
         editTask(task);
     });
 
     $("#include_commit_task_menu_item").click(function(event) {
+        event.preventDefault();
         var taskId = $("#task_menu").data("id");
         stageTask(taskId);
     });
 
     $("#exclude_commit_task_menu_item").click(function(event) {
+        event.preventDefault();
         var taskId = $("#task_menu").data("id");
         unstageTask(taskId);
     });
 
     $("#delete_task_menu_item").click(function(event) {
+        event.preventDefault();
         var taskId = $("#task_menu").data("id");
         deleteTask(taskId);
     });
 
     $("#discard_changes_task_menu_item").click(function(event) {
+        event.preventDefault();
         var taskId = $("#task_menu").data("id");
         discardTaskChanges(taskId);
     });

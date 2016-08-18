@@ -125,6 +125,16 @@ click outside the task to stop editing.
 
 Click the title, pending, estimation hours or tag labels to edit them directly in the 
 task item. Click the *E* link in a task item to display a task editor.
+
+### Adding and removing task fields
+
+To add a new field to a task, open the task editor (*E* link in the task item), and click the *Add field* link. 
+Check the *To all tasks* box if you want to add the field to all existing tasks. Enter the field name and its default
+value when asked.
+
+To remove an existing field, click the *X* link next to the field name in the task editor form, and confirm your
+action when asked. Notice that this action also asks to confirm the deletion of the field in all tasks but not just
+the one in edition.
  
 ### Deleting tasks
 

@@ -1,11 +1,11 @@
 {
-  "status": "open",
-  "pending": 1,
-  "estimation": 1,
-  "title": "Add new fields to tasks in the task editor",
+  "status": "done",
+  "pending": "0",
+  "estimation": "1",
+  "title": "Add new fields to one or all tasks in the task editor",
   "tags": "webpage,task editor",
-  "gitStatus": "A ",
+  "gitStatus": "M ",
   "id": "9158c243af2f15ee438b7962920d1e44eca97d4fd135ef68a56c72404d2a37ea",
   "createdAt": 1471534640405,
-  "updatedAt": 1471534704609
+  "updatedAt": 1471539218622
 }
