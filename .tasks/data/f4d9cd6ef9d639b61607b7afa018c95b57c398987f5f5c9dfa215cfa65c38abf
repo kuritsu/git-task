@@ -1,0 +1,11 @@
+{
+  "status": "open",
+  "pending": 1,
+  "estimation": 1,
+  "title": "Remove fields from tasks in task editor",
+  "tags": "webpage,task editor",
+  "gitStatus": "A ",
+  "id": "f4d9cd6ef9d639b61607b7afa018c95b57c398987f5f5c9dfa215cfa65c38abf",
+  "createdAt": 1471534684360,
+  "updatedAt": 1471534708431
+}
